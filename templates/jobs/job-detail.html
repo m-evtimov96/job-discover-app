@@ -1,0 +1,26 @@
+{% extends 'shared/base.html' %}
+
+{% block content %}
+    <div class="card mb-3" style="margin-top: 3%; border-color: midnightblue">
+        {% if job.image %}
+            <img class="card-img-top" style="" src="{{ job.image.url }}" alt="Card image cap">
+        {% endif %}
+        <div class="card-body">
+            <h4 class="card-title">{{ job.title }}</h4>
+            <p><small></small></p>
+            <small><b>Category:</b> {{ job.category.title }} <b>Location:</b> {{ job.location }}<b> Type:</b> {{ job.type }}</small></p>
+            {% if job.salary %}
+                <small> <b>Salary</b> - {{ job.salary }} BGN</small>
+            {% endif %}
+            <p></p>
+            <p class="card-text">{{ job.description }}</p>
+            <p class="text-center"><a href="#" class="btn btn-lg btn-outline-success"><b>Apply</b></a></p>
+{#        TODO: Make button go to Apply form if logged in, if not go to Log in url#}
+        </div>
+        <div class="card-footer">
+            {{ job.user.email }}
+{#            TODO: Add proper representation of company and link to it#}
+        </div>
+    </div>
+
+{% endblock %}

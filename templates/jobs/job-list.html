@@ -1,0 +1,46 @@
+{% extends 'shared/base.html' %}
+
+{% block content %}
+    <h1 class="text-center">All Jobs</h1>
+    <div class="list-group">
+        {% for job in jobs %}
+            <a href="{% url 'detail job' job.id %}" class="list-group-item list-group-item-action"
+               style="border-color: midnightblue">
+                <small>{{ job.date_created|date:"d/m/y" }}</small>
+                <div class="d-flex w-100 justify-content-between">
+                    <h4 class="mb-1">{{ job.title }}</h4>
+                    <h5>{{ job.user.email }}</h5>
+                </div>
+                <h6 style="display: inline">{{ job.location }}</h6>
+                {% if job.salary %}
+                    <h6 style="display: inline">| Salary - {{ job.salary }} BGN</h6>
+                {% endif %}
+            </a>
+        {% endfor %}
+    </div>
+    <br>
+    <nav>
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">&laquo; First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+                </li>
+            {% endif %}
+            <li class="page-item disabled">
+                <a class="page-link disabled">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a>
+            </li>
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+{% endblock %}
