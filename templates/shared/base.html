@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>JobDiscover</title>
     {#   Creat and Add Page Icon#}
-    {#    <link rel="icon" type="image/png" href="{% static 'images/logoJD.png' %}">#}
+{#<link rel="icon" type="image/png" href="{% static 'images/logoJD.png' %}">#}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
@@ -37,10 +37,10 @@
             {% if request.user.is_authenticated %}
                 <li class="nav-item">
                     {% if request.user.is_company %}
-                        <a class="nav-link" href="#">Hi, {{ request.user.companyprofile.name }}</a>
+                        <a class="nav-link" href="{% url 'company profile' request.user.id %}">Hello, {{ request.user.companyprofile.name }}</a>
                     {% endif %}
                     {% if request.user.is_applicant %}
-                        <a class="nav-link" href="#">Hi, {{ request.user.applicantprofile.first_name }}</a>
+                        <a class="nav-link" href="{% url 'applicant profile' %}">Hi, {{ request.user.applicantprofile.first_name }}</a>
                     {% endif %}
                 </li>
                 <li class="nav-item">
@@ -48,10 +48,10 @@
                 </li>
             {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Log in</a>
+                    <a class="nav-link" href="{% url 'log in' %}">Log in</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Register</a>
+                    <a class="nav-link" href="{% url 'main register' %}">Register</a>
                 </li>
             {% endif %}
         </ul>

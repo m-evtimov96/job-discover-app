@@ -1,4 +1,6 @@
-from multiselectfield import MultiSelectField
+from django import forms
+
+from JobDiscover.jobs_auth.models import CompanyProfile
 
 
 class BootstrapFormMixin:
@@ -13,3 +15,9 @@ class BootstrapFormMixin:
                 if 'class' not in field.widget.attrs:
                     field.widget.attrs['class'] = ''
                 field.widget.attrs['class'] += ' form-control'
+
+
+class EditCompanyForm(BootstrapFormMixin, forms.ModelForm):
+    class Meta:
+        model = CompanyProfile
+        exclude = ('user', 'name')

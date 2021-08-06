@@ -1,11 +1,15 @@
 from django.contrib.auth import get_user_model, login, logout
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
-from django.views.generic import CreateView
-from JobDiscover.jobs_auth.forms import ApplicantRegisterForm, CompanyRegisterForm
+from django.shortcuts import redirect
+from django.urls import reverse_lazy, reverse
+from django.views.generic import CreateView, TemplateView
+from JobDiscover.jobs_auth.forms import ApplicantRegisterForm, CompanyRegisterForm, LogInForm
 
 UserModel = get_user_model()
+
+
+class RegisterView(TemplateView):
+    template_name = 'auth/register.html'
 
 
 class ApplicantRegisterView(CreateView):
@@ -42,10 +46,14 @@ class CompanyRegisterView(CreateView):
         return redirect('index')
 
 
+class LogInView(LoginView):
+    template_name = 'auth/log-in.html'
+    form_class = LogInForm
+
+    def get_success_url(self):
+        return reverse('index')
+
+
 def log_out(request):
     logout(request)
     return redirect('index')
-
-
-class ApplicantLoginView(LoginView):
-    pass

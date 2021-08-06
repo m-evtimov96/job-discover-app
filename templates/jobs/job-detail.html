@@ -8,18 +8,27 @@
         <div class="card-body">
             <h4 class="card-title">{{ job.title }}</h4>
             <p><small></small></p>
-            <small><b>Category:</b> {{ job.category.title }} <b>Location:</b> {{ job.location }}<b> Type:</b> {{ job.type }}</small></p>
+            <small><b>Category:</b> {{ job.category.title }} <b>Location:</b> {{ job.location }}<b>
+                Type:</b> {{ job.type }}</small></p>
             {% if job.salary %}
                 <small> <b>Salary</b> - {{ job.salary }} BGN</small>
             {% endif %}
             <p></p>
             <p class="card-text">{{ job.description }}</p>
+            <br>
             <p class="text-center"><a href="#" class="btn btn-lg btn-outline-success"><b>Apply</b></a></p>
-{#        TODO: Make button go to Apply form if logged in, if not go to Log in url#}
+            {#        TODO: Make button go to Apply form if logged in, if not go to Log in url#}
         </div>
         <div class="card-footer">
-            {{ job.user.email }}
-{#            TODO: Add proper representation of company and link to it#}
+            {% if job.user.companyprofile.company_icon %}
+                <img src="{{ job.user.companyprofile.company_icon.url }}" alt="companyIcon" class="rounded-circle"
+                     width="150">
+            {% endif %}
+            <h3 class="d-inline">
+                <a href="{% url 'company profile' job.user_id %}"
+                   class="btn-light"><b>{{ job.user.companyprofile.name }}</b></a>
+            </h3>
+            {#            TODO: Maybe change link to profile logic#}
         </div>
     </div>
 

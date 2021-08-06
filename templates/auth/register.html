@@ -1,0 +1,13 @@
+{% extends 'shared/base.html' %}
+
+{% block content %}
+    <br>
+    <h1 class="text-center">Create your profile in JobDiscover</h1>
+    <h4 class="text-center">Are you searching for job or want to post job applications ?</h4>
+    <br>
+    <div class="text-center">
+        <a href="{% url 'applicant register' %}" class="btn btn-lg btn-outline-primary" style="margin-right: 7%">
+            Register as applicant</a>
+        <a href="{% url 'company register' %}" class="btn btn-lg btn-outline-primary">Register as company</a>
+    </div>
+{% endblock %}

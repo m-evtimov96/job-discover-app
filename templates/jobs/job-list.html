@@ -1,6 +1,7 @@
 {% extends 'shared/base.html' %}
 
 {% block content %}
+    <br>
     <h1 class="text-center">All Jobs</h1>
     <div class="list-group">
         {% for job in jobs %}
@@ -9,7 +10,7 @@
                 <small>{{ job.date_created|date:"d/m/y" }}</small>
                 <div class="d-flex w-100 justify-content-between">
                     <h4 class="mb-1">{{ job.title }}</h4>
-                    <h5>{{ job.user.email }}</h5>
+                    <h5>{{ job.user.companyprofile.name }}</h5>
                 </div>
                 <h6 style="display: inline">{{ job.location }}</h6>
                 {% if job.salary %}

@@ -1,6 +1,7 @@
 from django import forms
-from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import get_user_model, authenticate
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.core.exceptions import ValidationError
 from django.db import transaction
 
 from JobDiscover.core.forms import BootstrapFormMixin
@@ -45,6 +46,10 @@ class CompanyRegisterForm(BootstrapFormMixin, UserCreationForm):
         company.name = self.cleaned_data.get('name')
         company.save()
         return user
-
-
 # TODO: Validate fields in forms
+
+
+class LogInForm(BootstrapFormMixin, AuthenticationForm):
+
+    def save(self):
+        return self.user

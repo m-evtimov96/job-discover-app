@@ -1,0 +1,10 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block content %}
+    <form method="post" method="post" action="{% url 'company edit' object.pk %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Update">
+    </form>
+{% endblock %}

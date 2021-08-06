@@ -1,0 +1,78 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container" style="padding-top: 3%; padding-bottom: 1%">
+        <div class="main-body">
+            <div class="row gutters-sm">
+                <div class="col-md-4 mb-3">
+                    <div class="card" style="border-color: midnightblue">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+                                {% if object.company_icon %}
+                                    <img src="{{ object.company_icon.url }}" alt="" class="rounded-circle" width="150">
+                                {% else %}
+                                    <img src="{% static 'images/companyDefaultLogo.png' %}" alt=""
+                                         class="rounded-circle" width="150">
+                                {% endif %}
+
+                                <div class="mt-3">
+                                    <h2>{{ object.name }}</h2>
+                                    <small>Email:</small>
+                                    <p class="text-secondary mb-1">{{ object.user.email }}</p>
+                                    {% if object.bulstat %}
+                                        <small>Bulstat:</small>
+                                        <p class="text-muted font-size-sm">{{ object.bulstat }}</p>
+                                    {% endif %}
+                                    {% if is_profile_owner %}
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <a class="btn btn-md btn-outline-secondary" href="{% url 'company edit' object.user_id %}">Edit profile</a>
+                                                {#                                                TODO: Make Profile Edit page#}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row gutters-sm" style="padding-top: 5%">
+                        <div class="col-sm-12 mb-3">
+                            <div class="card h-100" style="border-color: midnightblue">
+                                <div class="card-body">
+                                    <h4 class="d-flex align-items-center mb-3">Job adverts: {{ jobs_list.count }}</h4>
+                                    {% for job in jobs_list %}
+                                        <a href="{% url 'detail job' job.id %}"
+                                           class="list-group-item list-group-item-action"
+                                           style="border-color: midnightblue">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h6 class="mb-1">{{ job.title }}</h6>
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card mb-3" style="border-color: midnightblue">
+                        <div class="card-body">
+                            {% if object.company_banner %}
+                                <img class="card-img-top" style="" src="{{ object.company_banner.url }}"
+                                     alt="Company banner">
+                                <hr>
+                            {% endif %}
+                            {% if object.description %}
+                                <h6 class="mb-0" style="padding-bottom: 2%">Description</h6>
+                                <div class="col-sm-12 text-secondary">{{ object.description }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

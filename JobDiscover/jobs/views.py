@@ -22,3 +22,9 @@ class JobCreateView(CreateView):
     model = Job
     form_class = JobCreateForm
     success_url = reverse_lazy('index')
+
+    def form_valid(self, form):
+        job = form.save(commit=False)
+        job.user = self.request.user
+        job.save()
+        return super(JobCreateView, self).form_valid(form)

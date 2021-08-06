@@ -17,7 +17,6 @@ class JobDiscoverUser(AbstractBaseUser, PermissionsMixin):
 
     objects = JobDiscoverUserManager()
 
-# TODO: Add more fields to Company and Applicant Profiles
 # TODO: Make checker function for IsCompany and IsApplicant
 
 
@@ -25,7 +24,7 @@ class CompanyProfile(models.Model):
     user = models.OneToOneField(JobDiscoverUser, on_delete=models.CASCADE, primary_key=True)
     name = models.CharField(max_length=45)
     description = models.TextField(blank=True, null=True)
-    bulstat = models.IntegerField(validators=[MaxLengthValidator(15)], blank=True, null=True)
+    bulstat = models.IntegerField(blank=True, null=True)
     company_icon = ResizedImageField(
         size=[100, 100],
         crop=['middle', 'center'],
@@ -45,6 +44,8 @@ class CompanyProfile(models.Model):
         help_text="Use image with 800x300px for best results.",
     )
 
+# TODO: Add website field
+
 
 class ApplicantProfile(models.Model):
     user = models.OneToOneField(JobDiscoverUser, on_delete=models.CASCADE, primary_key=True)
@@ -61,5 +62,3 @@ class ApplicantProfile(models.Model):
     )
 
 # TODO: Maybe add option to store CV's -> CV model linked to profile
-
-from .signals import *
