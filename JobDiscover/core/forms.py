@@ -1,6 +1,6 @@
 from django import forms
 
-from JobDiscover.jobs_auth.models import CompanyProfile
+from JobDiscover.jobs_auth.models import CompanyProfile, ApplicantProfile
 
 
 class BootstrapFormMixin:
@@ -21,3 +21,9 @@ class EditCompanyForm(BootstrapFormMixin, forms.ModelForm):
     class Meta:
         model = CompanyProfile
         exclude = ('user', 'name')
+
+
+class EditApplicantForm(BootstrapFormMixin, forms.ModelForm):
+    class Meta:
+        model = ApplicantProfile
+        exclude = ('user',)

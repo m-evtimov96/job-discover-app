@@ -1,0 +1,14 @@
+{% extends 'shared/base.html' %}
+
+{% block content %}
+    <h1 class="text-center" style="padding-top: 2%">Apply for this job:</h1>
+    <h4 class="text-center" style="padding-top: 2%">{{ job.title }}</h4>
+    <form class="col-md-10 offset-md-1" style="padding-top: 2%; padding-bottom: 3%" method="post"
+          action="{% url 'application create' job.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <p></p>
+        <button type="submit" class="btn btn-md btn-outline-success">Send application</button>
+    </form>
+
+{% endblock %}

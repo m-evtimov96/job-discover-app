@@ -25,6 +25,7 @@ class CompanyProfile(models.Model):
     name = models.CharField(max_length=45)
     description = models.TextField(blank=True, null=True)
     bulstat = models.IntegerField(blank=True, null=True)
+    website = models.CharField(max_length=100, blank=True, null=True)
     company_icon = ResizedImageField(
         size=[100, 100],
         crop=['middle', 'center'],
@@ -51,6 +52,7 @@ class ApplicantProfile(models.Model):
     user = models.OneToOneField(JobDiscoverUser, on_delete=models.CASCADE, primary_key=True)
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
+    bio = models.TextField(blank=True, null=True, max_length=300)
     profile_image = ResizedImageField(
         size=[150, 200],
         crop=['middle', 'center'],

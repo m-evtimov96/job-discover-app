@@ -1,6 +1,91 @@
 {% extends 'shared/base.html' %}
+{% load static %}
 
 {% block content %}
-    {{ form }}
+    <div class="container" style="padding-top: 3%; padding-bottom: 1%">
+        <div class="main-body">
+            <div class="row gutters-sm">
+                <div class="col-md-4 mb-3">
+                    <div class="card" style="border-color: midnightblue">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+                                {% if object.company_icon %}
+                                    <img src="{{ object.profile_image.url }}" alt="" class="rounded-circle" width="150">
+                                {% else %}
+                                    <img src="{% static 'images/applicantDefaultImage.png' %}" alt=""
+                                         class="rounded-circle" width="150">
+                                {% endif %}
+
+                                <div class="mt-3">
+                                    <h4>{{ object.first_name }} {{ object.last_name }}</h4>
+                                    {% if object.bio %}
+                                        <hr>
+                                        <h5>Bio</h5>
+                                        <p class="text-secondary mb-1 d-inline">{{ object.bio }}</p>
+                                    {% elif is_profile_owner %}
+                                        <p>Add your bio with the edit button</p>
+                                    {% endif %}
+                                    {% if is_profile_owner %}
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <hr>
+                                                <a class="btn btn-md btn-outline-secondary"
+                                                   href="{% url 'applicant edit' object.user_id %}">Edit profile</a>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-8">
+                    <div class="card mb-3" style="border-color: midnightblue">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Email</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ object.user.email }}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">First name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ object.first_name }}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Last name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ object.last_name }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {#                    <div class="card mb-3" style="border-color: midnightblue">#}
+                    {#                        <div class="card-body">#}
+                    {#                            <div class="row">#}
+                    {#                                <div class="col-sm-3">#}
+                    {#                                    <h6 class="mb-0">Email</h6>#}
+                    {#                                </div>#}
+                    {#                                <div class="col-sm-9 text-secondary">#}
+                    {#                                    {{ object.user.email }}#}
+                    {#                                </div>#}
+                    {#                            </div>#}
+                    {#                        </div>#}
+                    {#                    </div>#}
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

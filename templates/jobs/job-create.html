@@ -3,7 +3,7 @@
 {% block content %}
     <h1 class="text-center" style="padding-top: 2%">Add new job advert</h1>
     <form class="col-md-10 offset-md-1" style="padding-top: 2%; padding-bottom: 3%" method="post"
-          action="{% url 'create job' %}" enctype="multipart/form-data">
+          action="{% url 'job create' %}" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form }}
         <p></p>

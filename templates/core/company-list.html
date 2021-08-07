@@ -1,0 +1,63 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block content %}
+    <br>
+    <h1 class="text-center">All Companies</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row" style="padding-top: 3%; padding-bottom: 2%">
+                    {% for company in companies %}
+                        <div class="col-sm-6 col-lg-4 mb-4">
+                            <a style="color: #495057; text-decoration-color: midnightblue"
+                               href="{% url 'company profile' company.user_id %}">
+                                <div class="card" style="border-color: midnightblue">
+                                    {% if company.company_icon %}
+                                        <div class="text-center">
+                                            <img src="{{ company.company_icon.url }}" alt="">
+                                        </div>
+                                    {% else %}
+                                        <div class="text-center">
+                                            <img src="{% static 'images/companyDefaultLogo.png' %}" alt="">
+                                        </div>
+                                    {% endif %}
+
+                                    <div style="text-align: center">
+                                        <h3>{{ company.name }}</h3>
+                                    </div>
+                                    {#                                    <div style="text-align: center">#}
+                                    {#                                        <h6> TODO: Add company job num</h6>#}
+                                    {#                                    </div>#}
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav>
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">&laquo; First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+                </li>
+            {% endif %}
+            <li class="page-item disabled">
+                <a class="page-link disabled">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a>
+            </li>
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endblock %}

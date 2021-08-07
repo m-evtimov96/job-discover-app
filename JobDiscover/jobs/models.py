@@ -4,6 +4,8 @@ from django.db import models
 from django_resized import ResizedImageField
 from multiselectfield import MultiSelectField
 
+from JobDiscover.jobs_auth.models import ApplicantProfile, CompanyProfile
+
 UserModel = get_user_model()
 
 # TODO: Maybe move categories / Location to new class so they can be added later
@@ -78,3 +80,11 @@ class Job(models.Model):
     )
 
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+
+
+class Application(models.Model):
+    motivational_letter = models.TextField(max_length=2000)
+    cv = models.FileField(upload_to='applications')
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    applicant = models.ForeignKey(ApplicantProfile, on_delete=models.CASCADE)
+    company = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE)

@@ -16,8 +16,14 @@
             <p></p>
             <p class="card-text">{{ job.description }}</p>
             <br>
-            <p class="text-center"><a href="#" class="btn btn-lg btn-outline-success"><b>Apply</b></a></p>
-            {#        TODO: Make button go to Apply form if logged in, if not go to Log in url#}
+            {% if request.user.is_company %}
+            {% else %}
+                {% if request.user.is_applicant %}
+                    <p class="text-center"><a href="{% url 'application create' object.id %}" class="btn btn-lg btn-outline-success"><b>Apply</b></a></p>
+                {% else %}
+                    <p class="text-center"><a href="{% url 'log in' %}" class="btn btn-lg btn-outline-success"><b>Apply</b></a></p>
+                {% endif %}
+            {% endif %}
         </div>
         <div class="card-footer">
             {% if job.user.companyprofile.company_icon %}
