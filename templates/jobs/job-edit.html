@@ -2,7 +2,7 @@
 
 {% block content %}
     <br>
-    <form method="post" action="{% url 'company edit' object.pk %}" enctype="multipart/form-data">
+    <form method="post" action="{% url 'job edit' object.pk %}" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form }}
         <br><br>

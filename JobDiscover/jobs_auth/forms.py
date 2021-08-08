@@ -1,7 +1,7 @@
 from django import forms
-from django.contrib.auth import get_user_model, authenticate
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.core.exceptions import ValidationError
+
 from django.db import transaction
 
 from JobDiscover.core.forms import BootstrapFormMixin

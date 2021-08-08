@@ -1,3 +1,4 @@
+from django.http import HttpResponseForbidden
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import DetailView, UpdateView, ListView
@@ -39,6 +40,16 @@ class CompanyEditView(UpdateView):
     def get_success_url(self):
         return reverse('company profile', kwargs={'pk': self.object.pk})
 
+    def get(self, request, *args, **kwargs):
+        if not request.user.id == self.kwargs.get('pk'):
+            return HttpResponseForbidden()
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        if not request.user.id == self.kwargs.get('pk'):
+            return HttpResponseForbidden()
+        return super().post(request, *args, **kwargs)
+
 
 class ApplicantProfileView(DetailView):
     template_name = 'core/applicant-profile.html'
@@ -49,6 +60,11 @@ class ApplicantProfileView(DetailView):
         context['is_profile_owner'] = self.object.pk == self.request.user.id
         return context
 
+    def get(self, request, *args, **kwargs):
+        if not request.user.id == self.kwargs.get('pk'):
+            return HttpResponseForbidden()
+        return super().get(request, *args, **kwargs)
+
 
 class ApplicantEditView(UpdateView):
     template_name = 'core/applicant-edit.html'
@@ -57,6 +73,16 @@ class ApplicantEditView(UpdateView):
 
     def get_success_url(self):
         return reverse('applicant profile', kwargs={'pk': self.object.pk})
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.id == self.kwargs.get('pk'):
+            return HttpResponseForbidden()
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        if not request.user.id == self.kwargs.get('pk'):
+            return HttpResponseForbidden()
+        return super().post(request, *args, **kwargs)
 
 
 class CompanyListView(ListView):

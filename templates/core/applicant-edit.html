@@ -4,6 +4,8 @@
     <form method="post" action="{% url 'applicant edit' object.pk %}" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form }}
-        <input type="submit" value="Update">
+        <br><br>
+        <button type="submit" class="btn btn-md btn-outline-info">Save changes</button>
+        <p></p>
     </form>
 {% endblock %}

@@ -4,6 +4,7 @@ from django.db import models
 from django_resized import ResizedImageField
 from multiselectfield import MultiSelectField
 
+from JobDiscover.core.validators import validate_is_doc
 from JobDiscover.jobs_auth.models import ApplicantProfile, CompanyProfile
 
 UserModel = get_user_model()
@@ -84,7 +85,7 @@ class Job(models.Model):
 
 class Application(models.Model):
     motivational_letter = models.TextField(max_length=2000)
-    cv = models.FileField(upload_to='applications')
+    cv = models.FileField(upload_to='applications', validators=(validate_is_doc,))
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     applicant = models.ForeignKey(ApplicantProfile, on_delete=models.CASCADE)
     company = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE)

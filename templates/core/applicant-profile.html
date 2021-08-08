@@ -9,7 +9,7 @@
                     <div class="card" style="border-color: midnightblue">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                {% if object.company_icon %}
+                                {% if object.profile_image %}
                                     <img src="{{ object.profile_image.url }}" alt="" class="rounded-circle" width="150">
                                 {% else %}
                                     <img src="{% static 'images/applicantDefaultImage.png' %}" alt=""

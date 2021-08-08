@@ -4,22 +4,45 @@
     <br>
     <h1 class="text-center">All Jobs</h1>
     <br>
-    <div class="list-group">
-        {% for job in jobs %}
-            <a href="{% url 'job detail' job.id %}" class="list-group-item list-group-item-action"
-               style="border-color: midnightblue">
-                <small>{{ job.date_created|date:"d/m/y" }}</small>
-                <div class="d-flex w-100 justify-content-between">
-                    <h4 class="mb-1">{{ job.title }}</h4>
-                    <h5>{{ job.user.companyprofile.name }}</h5>
-                </div>
-                <h6 style="display: inline">{{ job.location }}</h6>
-                {% if job.salary %}
-                    <h6 style="display: inline">| Salary - {{ job.salary }} BGN</h6>
-                {% endif %}
-            </a>
-        {% endfor %}
-    </div>
+    <form method="get">
+        {{ filter.form }}
+        <button type="submit" class="btn btn-md btn-outline-secondary">Apply filters</button>
+    </form>
+    <br>
+    {% for obj in filter.qs %}
+        <a href="{% url 'job detail' obj.id %}" class="list-group-item list-group-item-action"#}
+           style="border-color: midnightblue">
+            <small>{{ obj.date_created|date:"d/m/y" }}</small>
+            <div class="d-flex w-100 justify-content-between">
+                <h4 class="mb-1">{{ obj.title }}</h4>
+                <h5>{{ obj.user.companyprofile.name }}</h5>
+            </div>
+            <h6 style="display: inline">{{ obj.location }}</h6>
+            {% if obj.salary %}
+                <h6 style="display: inline">| Salary - {{ obj.salary }} BGN</h6>
+            {% endif %}
+        </a>
+    {% endfor %}
+
+
+    {#    <div class="list-group">#}
+    {#        {% for job in jobs %}#}
+    {#            <a href="{% url 'job detail' job.id %}" class="list-group-item list-group-item-action"#}
+    {#               style="border-color: midnightblue">#}
+    {#                <small>{{ job.date_created|date:"d/m/y" }}</small>#}
+    {#                <div class="d-flex w-100 justify-content-between">#}
+    {#                    <h4 class="mb-1">{{ job.title }}</h4>#}
+    {#                    <h5>{{ job.user.companyprofile.name }}</h5>#}
+    {#                </div>#}
+    {#                <h6 style="display: inline">{{ job.location }}</h6>#}
+    {#                {% if job.salary %}#}
+    {#                    <h6 style="display: inline">| Salary - {{ job.salary }} BGN</h6>#}
+    {#                {% endif %}#}
+    {#            </a>#}
+    {#        {% endfor %}#}
+    {#    </div>#}
+
+
     <br>
     <nav>
         <ul class="pagination">

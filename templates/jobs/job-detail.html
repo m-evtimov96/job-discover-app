@@ -17,11 +17,23 @@
             <p class="card-text">{{ job.description }}</p>
             <br>
             {% if request.user.is_company %}
+                {% if is_profile_owner %}
+                    <a href="{% url 'job edit' job.id %}"
+                       class="btn btn-lg btn-outline-warning">Edit</a>
+                    <form style="display: inline" action="{% url 'job delete' job.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-lg btn-outline-danger"
+                                onclick="return confirm('Are you sure you want to delete this job advert?');">Delete
+                        </button>
+                    </form>
+                {% endif %}
             {% else %}
                 {% if request.user.is_applicant %}
-                    <p class="text-center"><a href="{% url 'application create' object.id %}" class="btn btn-lg btn-outline-success"><b>Apply</b></a></p>
+                    <p class="text-center"><a href="{% url 'application create' object.id %}"
+                                              class="btn btn-lg btn-outline-success"><b>Apply</b></a></p>
                 {% else %}
-                    <p class="text-center"><a href="{% url 'log in' %}" class="btn btn-lg btn-outline-success"><b>Apply</b></a></p>
+                    <p class="text-center"><a href="{% url 'log in' %}"
+                                              class="btn btn-lg btn-outline-success"><b>Apply</b></a></p>
                 {% endif %}
             {% endif %}
         </div>

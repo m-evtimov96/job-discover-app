@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
@@ -18,7 +19,6 @@ class ApplicantRegisterView(CreateView):
     form_class = ApplicantRegisterForm
     success_url = reverse_lazy('index')
 
-    # TODO: DOnt know what this does Check it
     def get_context_data(self, **kwargs):
         kwargs['user_type'] = 'applicant'
         return super().get_context_data(**kwargs)
@@ -49,6 +49,7 @@ class CompanyRegisterView(CreateView):
 class LogInView(LoginView):
     template_name = 'auth/log-in.html'
     form_class = LogInForm
+    redirect_authenticated_user = True
 
     def get_success_url(self):
         return reverse('index')

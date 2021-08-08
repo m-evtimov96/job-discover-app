@@ -1,22 +1,20 @@
 {% extends 'shared/base.html' %}
 
 {% block content %}
-        <div class="row justify-content-md-center">
-            <div class="col-md-5 text-align-center" style="padding-top: 3%;">
-                <h4>Please login with email and password</h4>
-                <br>
-                <form action="{% url 'log in' %}" method="post">
-                    {% csrf_token %}
-                    {{ form }}
-                    <div class="form-group" style="padding-top: 4%">
-                        <button type="submit" class="btn btn-md btn-outline-primary">Log in</button>
-                    </div>
-                    <div class="form-group">
-                        <a href="{% url 'main register' %}">Don't have an account? Create one!</a>
-                    </div>
-                </form>
-            </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-5 text-align-center" style="padding-top: 3%;">
+            <h4>Please login with email and password</h4>
+            <br>
+            <form action="{% url 'log in' %}" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <div class="form-group" style="padding-top: 4%">
+                    <button type="submit" class="btn btn-md btn-outline-primary">Log in</button>
+                </div>
+                <div class="form-group">
+                    <a href="{% url 'main register' %}">Don't have an account? Create one!</a>
+                </div>
+            </form>
         </div>
     </div>
-
 {% endblock %}

@@ -1,6 +1,7 @@
 {% extends 'shared/base.html' %}
 
 {% block content %}
+    <br>
     <form action="{% url 'applicant register' %}" method="post">
     {% csrf_token %}
     {{ form }}
