@@ -4,7 +4,7 @@ from django.http import Http404
 from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView, CreateView, DetailView, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView
 from django_filters.views import FilterView
 
 from JobDiscover.core.decorators import company_required, applicant_required
@@ -20,12 +20,16 @@ class JobListView(FilterView):
     model = Job
     paginate_by = 10
     filterset_class = JobFilter
+    ordering = ['-date_created']
 
-# class JobListView(ListView):
-#     template_name = 'jobs/job-list.html'
-#     model = Job
-#     context_object_name = 'jobs'
-#     paginate_by = 10
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        query = self.request.GET.copy()
+        if 'page' in query:
+            del query['page']
+        context['filter'] = JobFilter(self.request.GET, queryset=self.get_queryset())
+        context['queries'] = query
+        return context
 
 
 class JobDetailView(DetailView):

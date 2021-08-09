@@ -6,13 +6,14 @@
     <title>JobDiscover</title>
     {#   Creat and Add Page Icon#}
     {#<link rel="icon" type="image/png" href="{% static 'images/logoJD.png' %}">#}
+    <script src="https://use.fontawesome.com/d9abbbf60e.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100" style="background-color: #f7f7ff">
 
-<nav class="navbar navbar-expand-xl navbar-dark" style="background-color: midnightblue">
+<nav class="navbar navbar-expand-xl navbar-dark text-muted" style="background-color: midnightblue">
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
         <span class="navbar-toggler-icon"></span>
@@ -70,9 +71,63 @@
     {% endblock %}
 </div>
 
-<footer class="mt-auto card-footer footer text-center" style="background-color: midnightblue">
-    <small>Footer</small>
+
+<footer class="text-center mt-auto footer text-muted" style="background-color: midnightblue">
+
+    <section class="">
+        <div class="container text-center text-md-start mt-5">
+            <div class="row mt-3">
+
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                    <!-- Content -->
+                    <h6 class="text-uppercase fw-bold mb-4">
+                        <i class="fas fa-gem me-3"></i>Job Discover
+                    </h6>
+                    <p>
+                        This is place for short info about the site. It can be used for many things, but should be kept
+                        under 2 to 3 sentences long.
+                    </p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h6 class="text-uppercase fw-bold mb-4">Links</h6>
+
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a href="{% url 'index' %}" class="text-muted">Home</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'job list' %}" class="text-muted">Job adverts</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'company list' %}" class="text-muted">Companies</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-muted">About us</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold mb-4">
+                        Contact us:
+                    </h6>
+                    <p><i class="fa fa-home me-3"></i> City name, Street №, Country</p>
+                    <p><i class="fa fa-envelope me-3"></i> info@jobdiscover.com</p>
+                    <p><i class="fa fa-phone me-3"></i> + 359 12 3456 789</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.05);">
+        © MEvtimov 2021
+    </div>
+
 </footer>
+
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

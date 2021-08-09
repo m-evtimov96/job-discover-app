@@ -6,9 +6,11 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4">
-                        <h2>{{ application.applicant.first_name }} {{ application.applicant.last_name }}</h2></p>
+                        <h2>{{ application.applicant.first_name }} {{ application.applicant.last_name }}</h2>
+                        <h4>{{ application.applicant.user.email }}</h4>
                         <br>
-                        <h3>{{ application.applicant.user.email }}</h3>
+                        <h5>Applies for:</h5>
+                        <h5>{{ application.job.title }}</h5>
                     </div>
                     <div class="col-md-3">
                         {% if application.applicant.profile_image %}

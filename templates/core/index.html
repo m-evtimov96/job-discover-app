@@ -1,4 +1,136 @@
 {% extends 'shared/base.html' %}
+{% load static %}
 
 {% block content %}
+
+    <div style="text-align: center; padding-top: 5%">
+    <h1> {{ job_count }} Job adverts </h1>
+    <h3 style="color: midnightblue"> The next gen job finder</h3></div>
+
+    <div class="row d-flex justify-content-center mt-100 mb-100">
+        <div class="col-lg-10" style="padding-bottom: 5%; padding-top: 5%">
+            <form class="form-inline my-2 my-lg-0 input-group" method="GET" action="">
+                <input class="form-control rounded mr-sm-2" type="search" name="q" placeholder="Search by job title"
+                       aria-describedby="search-addon"
+                       value="{{ request.GET.q }}">
+                <input type="submit" value="Search" class="btn btn-outline-secondary">
+            </form>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center mt-100 mb-100">
+        <div class="col-lg-10">
+            <div class="list-group list-group-flush">
+                {% if object_list %}
+                    {% for obj in object_list %}
+                        <a href="{% url 'job detail' obj.id %}" class="list-group-item list-group-item-action"#}
+                           style="border-color: midnightblue">
+                            <small>{{ obj.date_created|date:"d/m/y" }}</small>
+                            <div class="d-flex w-100 justify-content-between">
+                                <h4 class="mb-1">{{ obj.title }}</h4>
+                                <h5>{{ obj.user.companyprofile.name }}</h5>
+                            </div>
+                            <h6 style="display: inline">{{ obj.location }}</h6>
+                            {% if obj.salary %}
+                                <h6 style="display: inline">| Salary - {{ obj.salary }} BGN</h6>
+                            {% endif %}
+                        </a>
+                    {% endfor %}
+                {% else %}
+                    <p>No results match your search</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center mt-100 mb-100">
+        <div class="col-lg-10">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% if is_paginated %}
+                        {% if page_obj.has_previous %}
+                            <li style="display: inline">
+                                <a href="?{{ queries.urlencode }}&amp;page=1"><i
+                                        class="page-link fa fa-angle-double-left"></i></a>
+                            </li>
+                            <li style="display: inline">
+                                <a href="?{{ queries.urlencode }}&amp;page={{ page_obj.previous_page_number }}"><i
+                                        class="page-link fa fa-angle-left"></i></a>
+                            </li>
+                        {% else %}
+                            <li style="display: inline" class="page-item disabled">
+                                <a href="#" class="page-link fa fa-angle-double-left"></a>
+                            </li>
+                            <li style="display: inline" class="page-item disabled">
+                                <a href="#" class="page-link fa fa-angle-left"></a>
+                            </li>
+                        {% endif %}
+
+                        {% for i in page_obj.paginator.page_range %}
+                            {% if page_obj.number == i %}
+                                <li class="page-link" style="display: inline; background-color: midnightblue">
+                                    <a href="#" style="color: white">{{ i }}</a>
+                                </li>
+                            {% elif i > page_obj.number|add:'-4' and i < page_obj.number|add:'4' %}
+                                <li style="display: inline">
+                                    <a class="page-link" href="?{{ queries.urlencode }}&amp;page={{ i }}">{{ i }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                            <li style="display: inline">
+                                <a href="?{{ queries.urlencode }}&amp;page={{ page_obj.next_page_number }}"><i
+                                        class="page-link fa fa-angle-right"></i></a>
+                            </li>
+                            <li style="display: inline">
+                                <a href="?{{ queries.urlencode }}&amp;page={{ page_obj.paginator.num_pages }}"><i
+                                        class="page-link fa fa-angle-double-right"></i></a>
+                            </li>
+                        {% else %}
+                            <li style="display: inline" class="page-item disabled">
+                                <a href="#" class="page-link fa fa-angle-right"></a>
+                            </li>
+                            <li style="display: inline" class="page-item disabled">
+                                <a href="#" class="page-link fa fa-angle-double-right"></a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <br>
+    <h1 style="text-align: center">Companies</h1>
+    <div class="row d-flex justify-content-center mt-100 mb-100">
+        <div class="col-lg-10">
+            <div class="row" style="padding-top: 3%; padding-bottom: 2%">
+                {% for company in company_list %}
+                    <div class="col-sm-6 col-lg-4 mb-4">
+                        <a style="color: #495057; text-decoration-color: midnightblue"
+                           href="{% url 'company profile' company.user_id %}">
+                            <div class="card" style="border-color: midnightblue">
+                                {% if company.company_icon %}
+                                    <div class="text-center">
+                                        <img src="{{ company.company_icon.url }}" alt="">
+                                    </div>
+                                {% else %}
+                                    <div class="text-center">
+                                        <img src="{% static 'images/companyDefaultLogo.png' %}" alt="">
+                                    </div>
+                                {% endif %}
+
+                                <div style="text-align: center">
+                                    <h3>{{ company.name }}</h3>
+                                    <p>
+                                            <span class="badge badge-primary badge-pill"
+                                                  style="">Adverts: {{ company.user.job_set.count }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

@@ -22,13 +22,13 @@
                                             <img src="{% static 'images/companyDefaultLogo.png' %}" alt="">
                                         </div>
                                     {% endif %}
-
                                     <div style="text-align: center">
                                         <h3>{{ company.name }}</h3>
+                                        <p>
+                                            <span class="badge badge-primary badge-pill"
+                                                  style="">Adverts: {{ company.user.job_set.count }}</span>
+                                        </p>
                                     </div>
-                                    {#                                    <div style="text-align: center">#}
-                                    {#                                        <h6> TODO: Add company job num</h6>#}
-                                    {#                                    </div>#}
                                 </div>
                             </a>
                         </div>

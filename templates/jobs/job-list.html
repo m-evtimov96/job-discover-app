@@ -1,6 +1,7 @@
 {% extends 'shared/base.html' %}
 
 {% block content %}
+
     <br>
     <h1 class="text-center">All Jobs</h1>
     <br>
@@ -9,116 +10,78 @@
         <button type="submit" class="btn btn-md btn-outline-secondary">Apply filters</button>
     </form>
     <br>
-    {% for obj in filter.qs %}
-        <a href="{% url 'job detail' obj.id %}" class="list-group-item list-group-item-action"#}
-           style="border-color: midnightblue">
-            <small>{{ obj.date_created|date:"d/m/y" }}</small>
-            <div class="d-flex w-100 justify-content-between">
-                <h4 class="mb-1">{{ obj.title }}</h4>
-                <h5>{{ obj.user.companyprofile.name }}</h5>
-            </div>
-            <h6 style="display: inline">{{ obj.location }}</h6>
-            {% if obj.salary %}
-                <h6 style="display: inline">| Salary - {{ obj.salary }} BGN</h6>
-            {% endif %}
-        </a>
-    {% endfor %}
 
-
-    {#    <div class="list-group">#}
-    {#        {% for job in jobs %}#}
-    {#            <a href="{% url 'job detail' job.id %}" class="list-group-item list-group-item-action"#}
-    {#               style="border-color: midnightblue">#}
-    {#                <small>{{ job.date_created|date:"d/m/y" }}</small>#}
-    {#                <div class="d-flex w-100 justify-content-between">#}
-    {#                    <h4 class="mb-1">{{ job.title }}</h4>#}
-    {#                    <h5>{{ job.user.companyprofile.name }}</h5>#}
-    {#                </div>#}
-    {#                <h6 style="display: inline">{{ job.location }}</h6>#}
-    {#                {% if job.salary %}#}
-    {#                    <h6 style="display: inline">| Salary - {{ job.salary }} BGN</h6>#}
-    {#                {% endif %}#}
-    {#            </a>#}
-    {#        {% endfor %}#}
-    {#    </div>#}
-
+    {% if not object_list %}
+        <h6>No result for the provided search filter.</h6>
+    {% else %}
+        {% for obj in object_list %}
+            <a href="{% url 'job detail' obj.id %}" class="list-group-item list-group-item-action"#}
+               style="border-color: midnightblue">
+                <small>{{ obj.date_created|date:"d/m/y" }}</small>
+                <div class="d-flex w-100 justify-content-between">
+                    <h4 class="mb-1">{{ obj.title }}</h4>
+                    <h5>{{ obj.user.companyprofile.name }}</h5>
+                </div>
+                <h6 style="display: inline">{{ obj.location }}</h6>
+                {% if obj.salary %}
+                    <h6 style="display: inline">| Salary - {{ obj.salary }} BGN</h6>
+                {% endif %}
+            </a>
+        {% endfor %}
+    {% endif %}
 
     <br>
-    <nav>
+    <nav aria-label="Page navigation example">
         <ul class="pagination">
-            {% if page_obj.has_previous %}
-                <li class="page-item">
-                    <a class="page-link" href="?page=1">&laquo; First</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
-                </li>
-            {% endif %}
-            <li class="page-item disabled">
-                <a class="page-link disabled">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a>
-            </li>
-            {% if page_obj.has_next %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
-                </li>
+            {% if is_paginated %}
+                {% if page_obj.has_previous %}
+                    <li style="display: inline">
+                        <a href="?{{ queries.urlencode }}&amp;page=1"><i class="page-link fa fa-angle-double-left"></i></a>
+                    </li>
+                    <li style="display: inline">
+                        <a href="?{{ queries.urlencode }}&amp;page={{ page_obj.previous_page_number }}"><i
+                                class="page-link fa fa-angle-left"></i></a>
+                    </li>
+                {% else %}
+                    <li style="display: inline" class="page-item disabled">
+                        <a href="#" class="page-link fa fa-angle-double-left"></a>
+                    </li>
+                    <li style="display: inline" class="page-item disabled">
+                        <a href="#" class="page-link fa fa-angle-left"></a>
+                    </li>
+                {% endif %}
+
+                {% for i in page_obj.paginator.page_range %}
+                    {% if page_obj.number == i %}
+                        <li class="page-link" style="display: inline; background-color: midnightblue">
+                            <a href="#" style="color: white">{{ i }}</a>
+                        </li>
+                    {% elif i > page_obj.number|add:'-4' and i < page_obj.number|add:'4' %}
+                        <li style="display: inline">
+                            <a class="page-link" href="?{{ queries.urlencode }}&amp;page={{ i }}">{{ i }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <li style="display: inline">
+                        <a href="?{{ queries.urlencode }}&amp;page={{ page_obj.next_page_number }}"><i
+                                class="page-link fa fa-angle-right"></i></a>
+                    </li>
+                    <li style="display: inline">
+                        <a href="?{{ queries.urlencode }}&amp;page={{ page_obj.paginator.num_pages }}"><i
+                                class="page-link fa fa-angle-double-right"></i></a>
+                    </li>
+                {% else %}
+                    <li style="display: inline" class="page-item disabled">
+                        <a href="#" class="page-link fa fa-angle-right"></a>
+                    </li>
+                    <li style="display: inline" class="page-item disabled">
+                        <a href="#" class="page-link fa fa-angle-double-right"></a>
+                    </li>
+                {% endif %}
             {% endif %}
         </ul>
     </nav>
-
+    <p></p>
 {% endblock %}
-
-
-{#    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>#}
-{##}
-{#    <div class="container">#}
-{#        <div class="mt-5">#}
-{#            {% for company in companies %}#}
-{#                <div class="d-style btn btn-brc-tp border-2 bgc-white btn-outline-blue btn-h-outline-blue btn-a-outline-blue w-100 my-2 py-3 shadow-sm">#}
-{#                    <!-- Basic Plan -->#}
-{#                    <div class="row align-items-center">#}
-{#                        <div class="col-12 col-md-4">#}
-{#                            <h4 class="pt-3 text-170 text-600 text-primary-d1 letter-spacing">{{ company.name }}</h4>#}
-{##}
-{#                            <div class="text-secondary-d1 text-120">#}
-{#                                <small>{{ company. }}</small>#}
-{#                            </div>#}
-{#                        </div>#}
-{##}
-{#                        <ul class="list-unstyled mb-0 col-12 col-md-4 text-dark-l1 text-90 text-left my-4 my-md-0">#}
-{#                            <li>#}
-{#                                <i class="fa fa-check text-success-m2 text-110 mr-2 mt-1"></i>#}
-{#                                <span>#}
-{#                <span class="text-110">Donec id elit.</span>#}
-{#              Fusce dapibus...#}
-{#              </span>#}
-{#                            </li>#}
-{##}
-{#                            <li class="mt-25">#}
-{#                                <i class="fa fa-check text-success-m2 text-110 mr-2 mt-1"></i>#}
-{#                                <span class="text-110">#}
-{#                Placerat duis#}
-{#            </span>#}
-{#                            </li>#}
-{##}
-{#                            <li class="mt-25">#}
-{#                                <i class="fa fa-times text-danger-m3 text-110 mr-25 mt-1"></i>#}
-{#                                <span class="text-110">#}
-{#                Tortor mauris#}
-{#            </span>#}
-{#                            </li>#}
-{#                        </ul>#}
-{##}
-{#                        <div class="col-12 col-md-4 text-center">#}
-{#                            <a href="#" class="f-n-hover btn btn-info btn-raised px-4 py-25 w-75 text-600">Get#}
-{#                                Started</a>#}
-{#                        </div>#}
-{#                    </div>#}
-{##}
-{#                </div>#}
-{#            {% endfor %}#}
-{##}
-{#        </div>#}
-{#    </div>#}

@@ -8,8 +8,29 @@ from JobDiscover.jobs.models import Job, Application
 from JobDiscover.jobs_auth.models import CompanyProfile, ApplicantProfile
 
 
-def index(request):
-    return render(request, 'core/index.html')
+class IndexView(ListView):
+    template_name = 'core/index.html'
+    model = Job
+    paginate_by = 5
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+            return qs.filter(title__icontains=query)
+        return qs
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context.update({
+            'company_list': CompanyProfile.objects.order_by('name'),
+        })
+        query = self.request.GET.copy()
+        if 'page' in query:
+            del query['page']
+        context['queries'] = query
+        context['job_count'] = Job.objects.all().count()
+        return context
 
 
 class CompanyProfileView(DetailView):
@@ -89,4 +110,4 @@ class CompanyListView(ListView):
     template_name = 'core/company-list.html'
     model = CompanyProfile
     context_object_name = 'companies'
-    paginate_by = 9
+    paginate_by = 6
