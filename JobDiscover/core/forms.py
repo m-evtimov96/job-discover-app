@@ -1,6 +1,6 @@
 from django import forms
 
-from JobDiscover.core.validators import file_size
+from JobDiscover.core.validators import validate_image_file_size
 from JobDiscover.jobs_auth.models import CompanyProfile, ApplicantProfile
 
 
@@ -25,12 +25,12 @@ class EditCompanyForm(BootstrapFormMixin, forms.ModelForm):
 
     def clean_company_icon(self):
         icon = self.cleaned_data.get('company_icon')
-        file_size(icon)
+        validate_image_file_size(icon)
         return icon
 
     def clean_company_banner(self):
         banner = self.cleaned_data.get('company_banner')
-        file_size(banner)
+        validate_image_file_size(banner)
         return banner
 
 
@@ -41,5 +41,5 @@ class EditApplicantForm(BootstrapFormMixin, forms.ModelForm):
 
     def clean_profile_image(self):
         image = self.cleaned_data.get('profile_image')
-        file_size(image)
+        validate_image_file_size(image)
         return image

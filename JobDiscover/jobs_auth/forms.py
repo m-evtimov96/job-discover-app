@@ -46,7 +46,6 @@ class CompanyRegisterForm(BootstrapFormMixin, UserCreationForm):
         company.name = self.cleaned_data.get('name')
         company.save()
         return user
-# TODO: Validate fields in forms
 
 
 class LogInForm(BootstrapFormMixin, AuthenticationForm):

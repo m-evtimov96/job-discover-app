@@ -4,7 +4,7 @@ from django.db import models
 from django_resized import ResizedImageField
 from multiselectfield import MultiSelectField
 
-from JobDiscover.core.validators import validate_is_doc
+from JobDiscover.core.validators import validate_is_doc, validate_start_with_capital
 from JobDiscover.jobs_auth.models import ApplicantProfile, CompanyProfile
 
 UserModel = get_user_model()
@@ -64,10 +64,10 @@ class Job(models.Model):
     ]
 
     title = models.CharField(max_length=75)
-    description = models.TextField()
+    description = models.TextField(max_length=5000)
     date_created = models.DateField(auto_now_add=True)
     category = models.CharField(max_length=15, choices=CATEGORY_CHOICES)
-    location = models.CharField(max_length=25)
+    location = models.CharField(max_length=25, validators=(validate_start_with_capital,))
     type = MultiSelectField(choices=TYPE_CHOICES)
     salary = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(1)])
     image = ResizedImageField(

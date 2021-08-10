@@ -4,6 +4,7 @@ from django.core.validators import MinValueValidator, MaxLengthValidator
 from django.db import models
 from django_resized import ResizedImageField
 
+from JobDiscover.core.validators import validate_start_with_capital, validate_correct_bulstat
 from JobDiscover.jobs_auth.managers import JobDiscoverUserManager
 
 
@@ -17,14 +18,12 @@ class JobDiscoverUser(AbstractBaseUser, PermissionsMixin):
 
     objects = JobDiscoverUserManager()
 
-# TODO: Make checker function for IsCompany and IsApplicant
-
 
 class CompanyProfile(models.Model):
     user = models.OneToOneField(JobDiscoverUser, on_delete=models.CASCADE, primary_key=True)
     name = models.CharField(max_length=45)
-    description = models.TextField(blank=True, null=True)
-    bulstat = models.IntegerField(blank=True, null=True)
+    description = models.TextField(max_length=2000, blank=True, null=True)
+    bulstat = models.IntegerField(blank=True, null=True, validators=(validate_correct_bulstat,))
     website = models.CharField(max_length=100, blank=True, null=True)
     company_icon = ResizedImageField(
         size=[100, 100],
@@ -45,13 +44,11 @@ class CompanyProfile(models.Model):
         help_text="Use image with 800x300px for best results.",
     )
 
-# TODO: Add website field
-
 
 class ApplicantProfile(models.Model):
     user = models.OneToOneField(JobDiscoverUser, on_delete=models.CASCADE, primary_key=True)
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=20)
+    first_name = models.CharField(max_length=20, validators=(validate_start_with_capital,))
+    last_name = models.CharField(max_length=20, validators=(validate_start_with_capital,))
     bio = models.TextField(blank=True, null=True, max_length=300)
     profile_image = ResizedImageField(
         size=[150, 200],
@@ -62,5 +59,3 @@ class ApplicantProfile(models.Model):
         null=True,
         help_text="Use image with 150x200px/300x400px for best results.",
     )
-
-# TODO: Maybe add option to store CV's -> CV model linked to profile

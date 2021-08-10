@@ -14,7 +14,19 @@ def validate_is_doc(file):
         raise ValidationError('Unacceptable file extension. Use .docx or .pdf')
 
 
-def file_size(value):
+def validate_start_with_capital(value):
+    if not value.istitle():
+        raise ValidationError('Please write the city starting with a capital letter and followed by lowercase')
+
+
+def validate_correct_bulstat(value):
+    if not len(value) == 9 or len(value) == 13:
+        raise ValidationError('Please use 9 or 13 digits for Bulstat')
+    if not value.isdigit():
+        raise ValidationError('Bulstat can only contain numbers')
+
+
+def validate_image_file_size(value):
     limit = 2 * 1024 * 1024
     if value:
         if value.size > limit:

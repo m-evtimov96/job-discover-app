@@ -4,7 +4,6 @@ from django.contrib.auth.admin import UserAdmin
 
 UserModel = get_user_model()
 
-# TODO: Fix admin fields for adding and updating
 
 @admin.register(UserModel)
 class JobDiscoverUserAdmin(UserAdmin):

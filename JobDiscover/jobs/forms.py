@@ -1,6 +1,6 @@
 from django import forms
 from JobDiscover.core.forms import BootstrapFormMixin
-from JobDiscover.core.validators import file_size
+from JobDiscover.core.validators import validate_image_file_size
 from JobDiscover.jobs.models import Job, Application
 
 
@@ -11,7 +11,7 @@ class JobCreateForm(BootstrapFormMixin, forms.ModelForm):
 
     def clean_image(self):
         image = self.cleaned_data.get('image')
-        file_size(image)
+        validate_image_file_size(image)
         return image
 
 
@@ -22,7 +22,7 @@ class JobEditForm(BootstrapFormMixin, forms.ModelForm):
 
     def clean_image(self):
         image = self.cleaned_data.get('image')
-        file_size(image)
+        validate_image_file_size(image)
         return image
 
 
