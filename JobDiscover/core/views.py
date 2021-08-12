@@ -110,4 +110,4 @@ class CompanyListView(ListView):
     template_name = 'core/company-list.html'
     model = CompanyProfile
     context_object_name = 'companies'
-    paginate_by = 6
+    paginate_by = 9
