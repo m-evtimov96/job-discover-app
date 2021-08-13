@@ -230,14 +230,14 @@ class CompanyListViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'core/company-list.html')
 
-    def test_paginationIsFive(self):
+    def test_paginationIsNine(self):
         response = self.client.get(reverse('company list'))
         self.assertEqual(response.status_code, 200)
         self.assertTrue('is_paginated' in response.context)
         self.assertTrue(response.context['is_paginated'] == True)
         self.assertEqual(len(response.context['object_list']), 9)
 
-    def test_listsAllJobs(self):
+    def test_listsAllCompanies(self):
         response = self.client.get(reverse('company list') + '?page=2')
         self.assertEqual(response.status_code, 200)
         self.assertTrue('is_paginated' in response.context)

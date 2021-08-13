@@ -9,8 +9,6 @@ from JobDiscover.jobs_auth.models import ApplicantProfile, CompanyProfile
 
 UserModel = get_user_model()
 
-# TODO: Maybe move categories / Location to new class so they can be added later
-
 
 class Job(models.Model):
     AUTOMOTIVE = 'automotive'
@@ -32,7 +30,7 @@ class Job(models.Model):
     CATEGORY_CHOICES = [
         (AUTOMOTIVE, 'Automotive, Auto Service'),
         (ACCOUNTING, 'Accounting, Finance'),
-        (BANKING,  'Banking, Lending'),
+        (BANKING, 'Banking, Lending'),
         (CALL_CENTER, 'Call Center, Customer Support'),
         (CLEANING, 'Cleaning, Household Services'),
         (DRIVING, 'Drivers, Couriers'),

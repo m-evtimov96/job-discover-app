@@ -1,7 +1,7 @@
 from django.urls import path
 
-from JobDiscover.core.views import IndexView, CompanyProfileView, ApplicantProfileView, CompanyEditView, ApplicantEditView, \
-    CompanyListView
+from JobDiscover.core.views import IndexView, CompanyProfileView, ApplicantProfileView, CompanyEditView, \
+    ApplicantEditView, CompanyListView
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),

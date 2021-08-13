@@ -1,5 +1,4 @@
 from django.http import HttpResponseForbidden
-from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import DetailView, UpdateView, ListView
 

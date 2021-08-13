@@ -4,11 +4,9 @@
     <br>
     <form action="{% url 'company register' %}" method="post">
         {% csrf_token %}
-        {{ form }}
-        <button type="submit" class="btn btn-md btn-outline-primary" style="margin-top: 3%; margin-bottom: 3%">
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-md btn-outline-primary" style="margin-top: 2%; margin-bottom: 5%">
             Register
         </button>
     </form>
 {% endblock %}
-
-{#TODO: Fix display of fields#}

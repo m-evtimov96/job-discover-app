@@ -7,7 +7,7 @@
             <br>
             <form action="{% url 'log in' %}" method="post">
                 {% csrf_token %}
-                {{ form }}
+                {{ form.as_p }}
                 <div class="form-group" style="padding-top: 4%">
                     <button type="submit" class="btn btn-md btn-outline-primary">Log in</button>
                 </div>
