@@ -43,6 +43,9 @@ class CompanyProfile(models.Model):
         help_text="Use image with 800x300px for best results.",
     )
 
+    def __str__(self):
+        return self.user.email
+
 
 class ApplicantProfile(models.Model):
     user = models.OneToOneField(JobDiscoverUser, on_delete=models.CASCADE, primary_key=True)
@@ -58,3 +61,6 @@ class ApplicantProfile(models.Model):
         null=True,
         help_text="Use image with 150x200px/300x400px for best results.",
     )
+
+    def __str__(self):
+        return self.user.email

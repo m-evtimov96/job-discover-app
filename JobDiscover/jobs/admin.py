@@ -10,4 +10,5 @@ class JobAdmin(admin.ModelAdmin):
 
 @admin.register(Application)
 class ApplicationAdmin(admin.ModelAdmin):
-    list_display = ('applicant',)
+    list_display = ('job', 'applicant', 'company')
+    list_filter = ('company',)

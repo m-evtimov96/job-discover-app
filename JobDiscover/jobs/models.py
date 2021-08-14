@@ -80,6 +80,9 @@ class Job(models.Model):
 
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.title
+
 
 class Application(models.Model):
     motivational_letter = models.TextField(max_length=2000)
