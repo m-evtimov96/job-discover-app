@@ -4,6 +4,8 @@
     <div class="card mb-3" style="margin-top: 3%; border-color: midnightblue">
         {% if job.image %}
             <img class="card-img-top" style="" src="{{ job.image.url }}" alt="Card image cap">
+        {% elif job.user.companyprofile.company_banner %}
+            <img class="card-img-top" style="" src="{{ job.user.companyprofile.company_banner.url }}" alt="Card image cap">
         {% endif %}
         <div class="card-body">
             <h4 class="card-title">{{ job.title }}</h4>

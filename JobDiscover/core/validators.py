@@ -20,9 +20,9 @@ def validate_start_with_capital(value):
 
 
 def validate_correct_bulstat(value):
-    if not (len(value) == 9 or len(value) == 13):
+    if not (len(str(value)) == 9 or len(str(value)) == 13):
         raise ValidationError('Please use 9 or 13 digits for Bulstat')
-    if not value.isdigit():
+    if not str(value).isdigit():
         raise ValidationError('Bulstat can only contain numbers')
 
 

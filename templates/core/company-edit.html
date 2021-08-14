@@ -4,7 +4,7 @@
     <br>
     <form method="post" action="{% url 'company edit' object.pk %}" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form }}
+        {{ form.as_p }}
         <br><br>
         <button type="submit" class="btn btn-md btn-outline-info">Save changes</button>
         <p></p>

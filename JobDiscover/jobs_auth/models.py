@@ -22,7 +22,7 @@ class CompanyProfile(models.Model):
     user = models.OneToOneField(JobDiscoverUser, on_delete=models.CASCADE, primary_key=True)
     name = models.CharField(max_length=45)
     description = models.TextField(max_length=2000, blank=True, null=True)
-    bulstat = models.IntegerField(blank=True, null=True, validators=(validate_correct_bulstat,))
+    bulstat = models.BigIntegerField(blank=True, null=True, validators=(validate_correct_bulstat,))
     website = models.CharField(max_length=100, blank=True, null=True)
     company_icon = ResizedImageField(
         size=[100, 100],
