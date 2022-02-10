@@ -1,9 +1,13 @@
 import os
 from pathlib import Path
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-82b+a%3z)_fcvsa=b*w1^xf++v+_0#b8xgh$r8)$4wu06s#1_g'
+SECRET_KEY = env('SECRET_KEY')
 
 DEBUG = True
 
@@ -56,9 +60,9 @@ WSGI_APPLICATION = 'JobDiscover.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'job_discover',
-        'USER': 'postgres',
-        'PASSWORD': 'Pass12345',
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASS'),
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -100,3 +104,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'jobs_auth.JobDiscoverUser'
 
 LOGIN_URL = '/auth/log-in/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = env('EMAIL_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_PASS')

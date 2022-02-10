@@ -9,6 +9,7 @@ from JobDiscover.jobs_auth.managers import JobDiscoverUserManager
 
 class JobDiscoverUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
+    is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_company = models.BooleanField(default=False)
     is_applicant = models.BooleanField(default=False)
