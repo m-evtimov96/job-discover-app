@@ -16,6 +16,7 @@ by category/name/salary, and apply to them.
 JobDiscoverUser - extended from AbstractBaseUser:
 * email - username field
 * password
+* is_active - flag for active user
 * is_staff - can login in admin
 * is_company - flag for company type
 * is_applicant - flag for applicant type
@@ -70,8 +71,10 @@ Contact me at: m.evtimov196@gmail.com
 
 ## Version History
 
-* 0.1
+* 1.0
     * Initial Release
+* 1.1
+    * Added reset password functionality
 
 ## Acknowledgments
 
