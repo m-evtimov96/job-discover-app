@@ -1,7 +1,7 @@
 from django.urls import path
 
 from JobDiscover.core.views import IndexView, CompanyProfileView, ApplicantProfileView, CompanyEditView, \
-    ApplicantEditView, CompanyListView
+    ApplicantEditView, CompanyListView, delete_user
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
@@ -9,5 +9,6 @@ urlpatterns = [
     path('profile-company/edit/<int:pk>', CompanyEditView.as_view(), name='company edit'),
     path('profile-applicant/<int:pk>', ApplicantProfileView.as_view(), name='applicant profile'),
     path('profile-applicant/edit/<int:pk>', ApplicantEditView.as_view(), name='applicant edit'),
+    path('delete/<int:pk>', delete_user, name='user delete'),
     path('companies/', CompanyListView.as_view(), name='company list'),
 ]

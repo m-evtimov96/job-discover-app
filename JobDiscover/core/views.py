@@ -1,10 +1,11 @@
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, Http404
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import DetailView, UpdateView, ListView
 
 from JobDiscover.core.forms import EditCompanyForm, EditApplicantForm
 from JobDiscover.jobs.models import Job, Application
-from JobDiscover.jobs_auth.models import CompanyProfile, ApplicantProfile
+from JobDiscover.jobs_auth.models import CompanyProfile, ApplicantProfile, JobDiscoverUser
 
 
 class IndexView(ListView):
@@ -69,6 +70,15 @@ class CompanyEditView(UpdateView):
         if not request.user.id == self.kwargs.get('pk'):
             return HttpResponseForbidden()
         return super().post(request, *args, **kwargs)
+
+
+def delete_user(request, pk):
+    user = JobDiscoverUser.objects.get(pk=pk)
+    if request.method == 'POST' and request.user.id == user.id:
+        user.delete()
+        return redirect('index')
+    else:
+        raise Http404('Page not found')
 
 
 class ApplicantProfileView(DetailView):

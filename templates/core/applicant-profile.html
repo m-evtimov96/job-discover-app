@@ -30,7 +30,14 @@
                                             <div class="col-sm-12">
                                                 <hr>
                                                 <a class="btn btn-md btn-outline-secondary"
-                                                   href="{% url 'applicant edit' object.user_id %}">Edit profile</a>
+                                                   href="{% url 'applicant edit' object.user_id %}">Edit profile
+                                                </a>
+                                                <form style="display: inline" action="{% url 'user delete' object.pk %}" method="post">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-md btn-outline-danger"
+                                                        onclick="return confirm('Are you sure you want to delete your profile? You cannot restore it afterwards!');">Delete profile
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
                                     {% endif %}
