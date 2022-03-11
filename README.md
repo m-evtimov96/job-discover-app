@@ -54,6 +54,10 @@ Application - model for applications
 * applicant - foreign-key to ApplicantProfile
 * company - foreign-ket to CompanyProfile
 
+### DB scheme
+![JobDiscoverDB_scheme](https://user-images.githubusercontent.com/59535105/157856702-090f8724-f248-42e0-b5fe-dcbaf45b6f72.png)
+
+
 ## Getting Started
 
 ### Dependencies
