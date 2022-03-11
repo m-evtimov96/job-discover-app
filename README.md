@@ -75,6 +75,10 @@ Contact me at: m.evtimov196@gmail.com
     * Initial Release
 * 1.1
     * Added reset password functionality
+ 
+## Planed updates
+* Favourite job adverts functionality
+* My applications tab for applicants
 
 ## Acknowledgments
 
